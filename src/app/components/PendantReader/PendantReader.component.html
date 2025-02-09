@@ -1,0 +1,55 @@
+<div *ngIf="applicationNode" class="component">
+    <div class="section">
+        <div class="pageHandler">
+            <div></div>
+            <div class="loadButton">
+                <button type="button" (click)="fileInput.click()">Select PDF File</button>
+                <input
+                    type="file"
+                    id="filePicker"
+                    #fileInput
+                    (change)="onFileSelected($event)"
+                    style="display: none;"
+                />
+            </div>
+            <nav *ngIf="isLoaded" class="center-div">
+                <button (click)="prevPage()" [disabled]="page === 1">
+                    Prev
+                </button>
+                <ur-dialog-input
+                    [type]="'number'"
+                    [disabled]="false"
+                    [label]="'Page Number'"
+                    [message]="'Type in page number.'"
+                    [placeholder]="'Placeholder Text'"
+                    [validators]="expressionValidators()"
+                    [translations]="{tooLongMessage: 'too long message', requiredValidationMessage: 'This field is required'}"
+                    [currentValue]="page"
+                    (valueChanged)="setVariable($event)"
+                    [positiveDigitsOnly]="true"
+                    [value]="page"
+                ></ur-dialog-input>
+                <button (click)="nextPage()" [disabled]="page === totalPages">
+                    Next
+                </button>
+            </nav>
+            <div class="right-div">
+                <p *ngIf="!isLoaded"> Page: ? / ? </p>
+                <p *ngIf="isLoaded"> Page: {{ page }} / {{ totalPages }}</p>
+            </div>
+            <div></div>
+        </div>
+        <div class="pdf-div">
+            <pdf-viewer *ngIf="pdfSrc"
+                [src]="pdfSrc"
+                [(page)]="page"
+                [scale]="1" 
+                (after-load-complete)="afterLoadComplete($event)"
+                [render-text]="true"
+                [show-all]="true"
+                (pageChange)="setVariable($event)"
+                class="pdf-viewer">
+            ></pdf-viewer>
+        </div>
+    </div>
+</div>

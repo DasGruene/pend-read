@@ -1,0 +1,10 @@
+metadata:
+  vendorID: "dasg"
+  urcapID: "pend-read"
+  vendorName: "DasGruene"
+  urcapName: "PendantReader"
+  version: 1.0.0
+artifacts:
+  webArchives:
+  - id: "pend-read"
+    folder: "pend-read"
