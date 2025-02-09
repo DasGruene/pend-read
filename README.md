@@ -20,7 +20,7 @@ This URCapX in its current form has only ever been run on a simulator because of
 
 ## Looks great, I want to use it (Installation the easy way)
 
-Go to the "target" folder here on GitHub and download the "pend-read-\*.urcapx", where * is the version number.
+Go to the "[target](https://github.com/DasGruene/pend-read/tree/main/target)" folder here on GitHub and download the "pend-read-\*.urcapx", where * is the version number.
 
 If using a real robot, transfer it to a USB, insert the USB into the robot, and press the so-called "hamburger menu" button in the top left corner. Press "System Manager -> URCaps" and install it by unlocking, using your password, and pressing the "+ URCap" button.
 
