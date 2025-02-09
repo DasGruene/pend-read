@@ -1,0 +1,12 @@
+{
+  "applicationNodes": [
+    {
+      "translationPath": "assets/i18n/",
+      "behaviorURI": "PendantReader.worker.js",
+      "presenterURI": "main.js",
+      "componentTagName": "dasg-pend-read-pendantreader"
+    }
+  ],
+  "programNodes": [],
+  "smartSkills": []
+}

@@ -1,0 +1,41 @@
+@import '../../../styles.scss';
+
+.component {
+
+  .section {
+    padding: 0.5rem 0.5rem 1rem;
+
+    .pageHandler { 
+      display: grid;
+      grid-template-columns: 4% auto 1fr auto 4%;
+      align-items: center; 
+      width: 100%;
+      gap: 20px; 
+  
+      .loadButton{
+        display: flex;
+        justify-content: flex-start; 
+      }
+      .center-div {
+        display: flex;
+        justify-content: center; 
+        gap: 20px; 
+      }
+  
+      .right-div {
+        display: flex;
+        justify-content: flex-end; 
+      }
+    }
+
+    .pdf-viewer {
+      display: flex;
+      justify-content: center; 
+      height: 68vh; 
+      width: 85vw;  
+      min-width: 0;
+      min-height: 0;
+    }
+    
+  }
+}
