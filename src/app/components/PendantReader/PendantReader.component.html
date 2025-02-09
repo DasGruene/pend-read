@@ -42,11 +42,13 @@
         <div class="pdf-div">
             <pdf-viewer *ngIf="pdfSrc"
                 [src]="pdfSrc"
-                [show-borders]="true"
                 [(page)]="page"
                 [scale]="1" 
                 (after-load-complete)="afterLoadComplete($event)"
-                class="pdf-viewer"
+                [render-text]="true"
+                [show-all]="true"
+                (pageChange)="setVariable($event)"
+                class="pdf-viewer">
             ></pdf-viewer>
         </div>
     </div>

@@ -10,7 +10,12 @@ import { PendantReaderNode } from './PendantReader.node';
 // factory is required
 const createApplicationNode = (): OptionalPromise<PendantReaderNode> => ({
     type: 'dasg-pend-read-pendantreader',    // type is required
-    version: '1.0.0'     // version is required
+    version: '1.0.0',     // version is required
+    parameters: {
+        page: 1,
+        isLoaded: false,
+        selectedFile: null,
+      },
 });
 
 // generatePreamble is optional
