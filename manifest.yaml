@@ -3,7 +3,7 @@ metadata:
   urcapID: "pend-read"
   vendorName: "DasGruene"
   urcapName: "PendantReader"
-  version: 1.0.0
+  version: 1.0.1
 artifacts:
   webArchives:
   - id: "pend-read"
