@@ -35,7 +35,18 @@
       width: 85vw;  
       min-width: 0;
       min-height: 0;
+
+      ::ng-deep .ng2-pdf-viewer-container {
+        touch-action: auto !important;
+      }
+
+      ::ng-deep .ng2-pdf-viewer-container::-webkit-scrollbar {
+        width: 30px !important;
+      }
+
+      ::ng-deep .ng2-pdf-viewer-container::-webkit-scrollbar-thumb {
+        height: 40px !important;;
+      }
     }
-    
   }
 }

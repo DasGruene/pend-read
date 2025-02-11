@@ -2,8 +2,8 @@
   "application": {
     "nodes": {
       "dasg-pend-read-pendantreader": {
-        "title": "Pendantreader",
-        "supportiveText": "Pendantreader - Supportive Text"
+        "title": "PendantReader",
+        "supportiveText": "PendantReader - Supportive Text"
       }
     }
   }
