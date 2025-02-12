@@ -14,9 +14,6 @@ PolyScope X is, at the time of writing, only available in a beta version.
 
 For further details, please see PolyScope X Open Beta. (https://forum.universal-robots.com/t/polyscope-x-open-beta-announcement/36988)
 
-## A Word of Warning!
-
-This URCapX in its current form has only ever been run on a simulator because of a current lack of the less-than-cheap hardware needed to run it on a physical system.
 
 ## Looks great, I want to use it (Installation the easy way)
 
