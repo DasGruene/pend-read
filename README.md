@@ -20,7 +20,7 @@ You can "double tap" on the PDF itself and swipe, but also on the scrollbar thum
 
 ## Looks great, I want to use it (Installation the easy way)
 
-Go to the "[target](https://github.com/DasGruene/pend-read/tree/main/target)" folder here on GitHub and download the "pend-read-\*.urcapx", where * is the version number.
+Go to the "[Releases](https://github.com/DasGruene/pend-read/releases)", here on GitHub and download the latest URCap.
 
 If using a real robot, transfer it to a USB, insert the USB into the robot, and press the so-called "hamburger menu" button in the top left corner. Press "System Manager -> URCaps" and install it by unlocking, using your password, and pressing the "+ URCap" button.
 
@@ -113,7 +113,7 @@ Now go to the simulator in your browser and refresh the page. The Urcap should n
 
 ### Further help needed?
 
-Get more help directly from the source: [Polyscope X SDK documentation, [Universal Robots Discord,](https://discord.com/invite/sEjRgEf6fp) or [Universal Robots Forum].](https://forum.universal-robots.com)
+Get more help directly from the source: [Polyscope X SDK documentation](https://docs.universal-robots.com/PolyScopeX_SDK_Documentation/build/PSX-SDK-v0.13/index.html), [Universal Robots Discord,](https://discord.com/invite/sEjRgEf6fp) or [Universal Robots Forum](https://forum.universal-robots.com)
 
 
 ## I've found a bug. What now?
