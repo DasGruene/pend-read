@@ -14,6 +14,9 @@ PolyScope X is, at the time of writing, only available in a beta version.
 
 For further details, please see PolyScope X Open Beta. (https://forum.universal-robots.com/t/polyscope-x-open-beta-announcement/36988)
 
+## How to Scroll
+Currently it can be needed to "double tap" to scroll through the pdf.
+You can "double tap" on the PDF itself and swipe, but also on the scrollbar thumb followed by a drag.
 
 ## Looks great, I want to use it (Installation the easy way)
 
@@ -154,7 +157,7 @@ I do think this is the most important category, as it's here where this tool bec
 
 ###### General PDF Reader Related
 
-There is, in general, a lot of features missing that you would expect from a modern PDF reader, like zoom, search, bookmarks, "fit to width," "fit to height," and the list continues.
+There is, in general, a lot of features missing that you would expect from a modern PDF reader, like zoom, bookmarks, "fit to width," "fit to height," and the list continues.
 
 All of which could be nice to implement at some point.
 

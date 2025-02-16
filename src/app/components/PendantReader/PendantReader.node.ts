@@ -7,5 +7,6 @@ export interface PendantReaderNode extends ApplicationNode {
     page: number;
     isLoaded: boolean;
     selectedFile: File | null;
+    searchText: string;
   };
 }
