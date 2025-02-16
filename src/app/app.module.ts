@@ -9,6 +9,7 @@ import {MultiTranslateHttpLoader} from 'ngx-translate-multi-http-loader';
 import { PATH } from '../generated/contribution-constants';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { FormsModule } from '@angular/forms';
 
 export const httpLoaderFactory = (http: HttpBackend) =>
     new MultiTranslateHttpLoader(http, [
@@ -23,6 +24,7 @@ export const httpLoaderFactory = (http: HttpBackend) =>
     imports: [
         BrowserModule,
         PdfViewerModule,
+        FormsModule,
         BrowserAnimationsModule,
         UIAngularComponentsModule,
         TranslateModule.forRoot({

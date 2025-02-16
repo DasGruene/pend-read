@@ -1,10 +1,11 @@
 import { TranslateService } from '@ngx-translate/core';
 import { first } from 'rxjs/operators';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, signal, SimpleChanges, HostListener} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, signal, SimpleChanges, HostListener, ViewChild, WritableSignal} from '@angular/core';
 import { ApplicationPresenterAPI, ApplicationPresenter, RobotSettings } from '@universal-robots/contribution-api';
 import { PendantReaderNode } from './PendantReader.node';
 import { PATH } from 'src/generated/contribution-constants';
 import { InputValidator } from '@universal-robots/ui-models';
+import { PdfViewerComponent } from 'ng2-pdf-viewer';
 
 /**
  * The Main Class For the PendantReader 
@@ -29,15 +30,23 @@ export class PendantReaderComponent implements ApplicationPresenter, OnChanges {
     @Input() robotSettings: RobotSettings;
     // applicationNode is required
     private _applicationNode: PendantReaderNode;
-
+    
+    @ViewChild(PdfViewerComponent) private pdfComponent: PdfViewerComponent;
 
     testfilepath: string = PATH + '/assets/files/LoremIpsum.pdf';
-    expressionValidators = signal<Array<InputValidator>>([]);
+    expressionValidators: WritableSignal<Array<InputValidator>> = signal<Array<InputValidator>>([]);
     selectedFile: File | null = null;
     pdfSrc: string | ArrayBuffer | null = null;
     page: number = 1;
     totalPages: number = 1;
     isLoaded: boolean = false;
+    searchText: string = '';
+    lastSearchText: string = '';
+    currentMatch: number = 0;
+    matchCount: number = 0;
+    showSearchPopup: boolean = false;
+
+    
 
 
     constructor(
@@ -71,8 +80,6 @@ export class PendantReaderComponent implements ApplicationPresenter, OnChanges {
                 return null;
             },
         ]);
-
-
     }
 
     
@@ -86,6 +93,7 @@ export class PendantReaderComponent implements ApplicationPresenter, OnChanges {
         this.isLoaded = true;
         this.applicationNode.parameters.isLoaded = this.isLoaded;
         this.saveNode()
+        this.pdfComponent.eventBus.dispatch('touchHandling', { enable: true });
     }
 
     nextPage() {
@@ -101,7 +109,6 @@ export class PendantReaderComponent implements ApplicationPresenter, OnChanges {
     }
 
     onPageChange() {
-        // Make sure the page is within valid bounds
         if (this.page < 1) {
           this.page = 1;
         } else if (this.page > this.totalPages) {
@@ -112,7 +119,7 @@ export class PendantReaderComponent implements ApplicationPresenter, OnChanges {
       }
     
 
-    setVariable(pageNumber: number): void {
+    setPageVariable(pageNumber: number): void {
         this.page = pageNumber;
         this.applicationNode.parameters.page = this.page;
         this.saveNode()
@@ -141,7 +148,7 @@ export class PendantReaderComponent implements ApplicationPresenter, OnChanges {
                     this.pdfSrc = e.target.result;
                     this.page = page;
                     this.applicationNode.parameters.page = this.page;
-                    this.saveNode()
+                    this.saveNode();
                     this.cd.detectChanges();  
                 }
                 else {
@@ -149,11 +156,11 @@ export class PendantReaderComponent implements ApplicationPresenter, OnChanges {
                 }
             };
             reader.readAsArrayBuffer(file);
-          } else {
-            console.log(file)
-            this.resetNode();
-            // TODO: display a message another way then an alert('Please select a valid PDF file.');
-          }
+        } else {
+        console.log(file)
+        this.resetNode();
+        // TODO: display a message another way then an alert('Please select a valid PDF file.');
+        }
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -180,10 +187,9 @@ export class PendantReaderComponent implements ApplicationPresenter, OnChanges {
             this.page = this.applicationNode.parameters.page;
             this.isLoaded = this.applicationNode.parameters.isLoaded;
             this.selectedFile = this.applicationNode.parameters.selectedFile;
+            this.searchText = this.applicationNode.parameters.searchText
             if (this.isLoaded && (this.selectedFile != null)) {
                 try {
-                    // as the pdf might have been deleted and or moved
-                    // TODO: add check for if file exist instead
                     this.loadPdf(this.selectedFile, this.page);
                     return   
                 } catch(e) {
@@ -208,9 +214,86 @@ export class PendantReaderComponent implements ApplicationPresenter, OnChanges {
     }
 
 
-    // call saveNode to save node parameters
     saveNode() {
         this.cd.detectChanges();
         this.applicationAPI.applicationNodeService.updateNode(this.applicationNode);
     }
+
+    toggleSearchPopup() {
+        this.showSearchPopup = !this.showSearchPopup;
+    }
+
+    setSearchVariable(searchInput: string): void {
+        this.searchText = searchInput;
+        this.applicationNode.parameters.searchText = this.searchText;
+        this.saveNode()
+        this.searchInPDF()
+    }
+
+    searchInPDF(forward: boolean = true): void {
+        if (this.searchText !== this.lastSearchText) {
+            this.currentMatch = 0
+            this.lastSearchText = this.searchText
+        }
+
+        let highlight: boolean = true;
+        if (!this.isLoaded || this.searchText.trim() === '') {
+            this.currentMatch = 0
+            this.matchCount = 0
+            highlight = false
+            if (!this.isLoaded) {
+                return
+            }
+        }
+
+        if (forward) {
+            this.currentMatch += 1
+            if (this.currentMatch > this.matchCount) {
+                this.currentMatch = 1
+            } 
+        } else {
+            this.currentMatch -= 1
+            if (this.currentMatch < 1) {
+                this.currentMatch = this.matchCount;
+            }
+        }
+
+        const updateMatchesCount = (event: any) => {
+            this.matchCount = event.matchesCount.total || 0;
+            this.cd.detectChanges();
+        };
+          
+        const updateFindControlState = (event: any) => {
+            //https://stackoverflow.com/questions/55128023/how-to-know-when-pdffindcontroller-executecommand-has-executed
+            const FindState = {
+                FOUND: 0,
+                NOT_FOUND: 1,
+                WRAPPED: 2,
+                PENDING: 3
+             };
+
+            if (event.state === FindState.NOT_FOUND) {
+              this.matchCount = 0;
+              this.currentMatch = 0;
+              this.cd.detectChanges();
+            }
+          };
+
+        //makes sure that only one of each is ever running
+        this.pdfComponent.eventBus.off('updatefindcontrolstate', updateFindControlState); 
+        this.pdfComponent.eventBus.off('updatefindmatchescount', updateMatchesCount); 
+
+        
+        this.pdfComponent.eventBus.on('updatefindmatchescount', updateMatchesCount);
+        this.pdfComponent.eventBus.on('updatefindcontrolstate', updateFindControlState);
+
+        this.pdfComponent.eventBus.dispatch('find', {
+            query: this.searchText, type: "again", caseSensitive: false, findPrevious: !forward, highlightAll: highlight, phraseSearch: true
+        }); 
+    }
+
+    closeSearchPopup() {
+        this.showSearchPopup = false;
+    }
+
 }

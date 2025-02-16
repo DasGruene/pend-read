@@ -3,7 +3,7 @@
         <div class="pageHandler">
             <div></div>
             <div class="loadButton">
-                <button type="button" (click)="fileInput.click()">Select PDF File</button>
+                <button type="button" (click)="fileInput.click()">📄</button>
                 <input
                     type="file"
                     id="filePicker"
@@ -14,23 +14,24 @@
             </div>
             <nav *ngIf="isLoaded" class="center-div">
                 <button (click)="prevPage()" [disabled]="page === 1">
-                    Prev
+                    <<
                 </button>
                 <ur-dialog-input
                     [type]="'number'"
                     [disabled]="false"
                     [label]="'Page Number'"
                     [message]="'Type in page number.'"
-                    [placeholder]="'Placeholder Text'"
+                    [placeholder]="''"
                     [validators]="expressionValidators()"
                     [translations]="{tooLongMessage: 'too long message', requiredValidationMessage: 'This field is required'}"
                     [currentValue]="page"
-                    (valueChanged)="setVariable($event)"
+                    (valueChanged)="setPageVariable($event)"
                     [positiveDigitsOnly]="true"
                     [value]="page"
+                    [keyboardLayout]="numeric-free-positive"
                 ></ur-dialog-input>
                 <button (click)="nextPage()" [disabled]="page === totalPages">
-                    Next
+                    >>
                 </button>
             </nav>
             <div class="right-div">
@@ -39,17 +40,41 @@
             </div>
             <div></div>
         </div>
-        <div class="pdf-div">
-            <pdf-viewer *ngIf="pdfSrc"
+        <div class="pdf-div" *ngIf="pdfSrc">
+            <pdf-viewer
                 [src]="pdfSrc"
                 [(page)]="page"
                 [scale]="1" 
                 (after-load-complete)="afterLoadComplete($event)"
                 [render-text]="true"
                 [show-all]="true"
-                (pageChange)="setVariable($event)"
+                [render-text-mode]="2"
+                (pageChange)="setPageVariable($event)"
                 class="pdf-viewer">
             ></pdf-viewer>
+            <div class="toolbar">
+                <div class="search-function">   
+                    <button (click)="toggleSearchPopup()"> 🔍 </button>
+                    <!-- Search Popup -->
+                    <div class="search-popup" *ngIf="showSearchPopup">
+                        <div style="display: flex;">
+                            <ur-dialog-input
+                                [type]="'text'"
+                                [disabled]="false"
+                                [label]="'Search: ' + currentMatch + '/' + matchCount"
+                                [message]="'Type in search text.'"
+                                [placeholder]="''"
+                                [currentValue]="searchText"
+                                (valueChanged)="setSearchVariable($event)"
+                                [value]="searchText"
+                            ></ur-dialog-input>
+                            <button (click)="searchInPDF(true)" class="search-btn">⬇️</button>
+                            <button (click)="searchInPDF(false)" class="search-btn">⬆️</button>
+                            <button (click)="closeSearchPopup()" class="search-btn">❌</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

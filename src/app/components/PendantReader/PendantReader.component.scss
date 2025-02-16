@@ -28,25 +28,74 @@
       }
     }
 
-    .pdf-viewer {
+    .pdf-div {
       display: flex;
       justify-content: center; 
-      height: 68vh; 
-      width: 85vw;  
-      min-width: 0;
-      min-height: 0;
 
-      ::ng-deep .ng2-pdf-viewer-container {
+      .pdf-viewer {
+        margin: 5px;
+        text-align: center;
+        height: 68vh; 
+        width: 85vw;  
+        min-width: 0;
+        min-height: 0;
         touch-action: auto !important;
+        overflow-y: scroll !important;
+        -webkit-overflow-scrolling: touch; /* Enables smooth scrolling */
+  
+        ::ng-deep .ng2-pdf-viewer-container {
+          touch-action: auto !important;
+          overflow-y: scroll !important;
+          -webkit-overflow-scrolling: touch; /* Enables smooth scrolling */
+        }
+  
+        ::ng-deep .ng2-pdf-viewer-container::-webkit-scrollbar {
+          width: 30px !important;
+          touch-action: auto !important;
+        }
+  
+        ::ng-deep .ng2-pdf-viewer-container::-webkit-scrollbar-thumb {
+          height: 40px !important;
+          touch-action: auto !important;
+        }
       }
 
-      ::ng-deep .ng2-pdf-viewer-container::-webkit-scrollbar {
-        width: 30px !important;
+      .toolbar {
+        margin: 5px;
+
+        .search-function {
+          position: relative;
+          display: inline-block;
+          
+
+          .search-popup {
+            position: absolute;
+            top: 50%;
+            right: 230%;
+            transform: translate(0%, -50%); /* Moves left by 100% of its width & centers vertically */
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000; /* Makes sure it's always on top */
+
+            .search-btn {
+              flex: 1;
+              margin-left: 10px;
+            }
+          }
+        }
+
+
       }
 
-      ::ng-deep .ng2-pdf-viewer-container::-webkit-scrollbar-thumb {
-        height: 40px !important;;
-      }
+
     }
+
+    
   }
 }

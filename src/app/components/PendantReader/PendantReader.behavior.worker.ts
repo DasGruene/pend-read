@@ -15,6 +15,7 @@ const createApplicationNode = (): OptionalPromise<PendantReaderNode> => ({
         page: 1,
         isLoaded: false,
         selectedFile: null,
+        searchText: "",
       },
 });
 
