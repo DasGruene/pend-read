@@ -1,6 +1,6 @@
 # PendantReader
 
-![Screenshot](documentation/pictures/ScreenCap.png? "Example of Usage")
+![Screenshot](documentation/pictures/ScreenCap.png "Example of Usage")
 
 In this day and age, almost everything has gone digital, including documentation. This has been done in an effort to reduce the use of paper and hopefully save a tree or two.
 
