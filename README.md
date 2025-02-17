@@ -18,6 +18,11 @@ For further details, please see PolyScope X Open Beta. (https://forum.universal-
 Currently it can be needed to "double tap" to scroll through the pdf.
 You can "double tap" on the PDF itself and swipe, but also on the scrollbar thumb followed by a drag.
 
+## Features
+- File selections.
+- Word Search with highlighting.
+- Varius way to transverse the PDF including Scrolling, page turning, and go to a page number.
+
 ## Looks great, I want to use it (Installation the easy way)
 
 Go to the "[Releases](https://github.com/DasGruene/pend-read/releases)", here on GitHub and download the latest URCap.
