@@ -53,6 +53,9 @@
                 class="pdf-viewer">
             ></pdf-viewer>
             <div class="toolbar">
+                <div class="scroll-up">
+                    <button > 🔼 </button>
+                </div>
                 <div class="search-function">   
                     <button (click)="toggleSearchPopup()"> 🔍 </button>
                     <!-- Search Popup -->
@@ -73,6 +76,9 @@
                             <button (click)="closeSearchPopup()" class="search-btn">❌</button>
                         </div>
                     </div>
+                </div>
+                <div class="scroll-down">
+                    <button (mousedown)="startScrolling('down')" (mouseup)="stopScrolling()" (mouseleave)="stopScrolling()" (touchstart)="startScrolling('down')" (touchend)="stopScrolling()">  ⬇ </button>
                 </div>
             </div>
         </div>

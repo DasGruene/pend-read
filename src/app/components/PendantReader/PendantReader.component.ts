@@ -45,9 +45,7 @@ export class PendantReaderComponent implements ApplicationPresenter, OnChanges {
     currentMatch: number = 0;
     matchCount: number = 0;
     showSearchPopup: boolean = false;
-
-    
-
+    scrollInterval: any;
 
     constructor(
         protected readonly translateService: TranslateService,
@@ -294,6 +292,31 @@ export class PendantReaderComponent implements ApplicationPresenter, OnChanges {
 
     closeSearchPopup() {
         this.showSearchPopup = false;
+    }
+
+
+    startScrolling(direction: 'up' | 'down') {
+
+
+        const pdfContainer = document.querySelector('.ng2-pdf-viewer-container');
+      
+        if (!pdfContainer) {
+            console.error("PDF container not found!");
+            return;
+        }
+    
+        this.scrollInterval = setInterval(() => {
+            pdfContainer.scrollBy({ 
+              top: direction === 'down' ? 20 : -20, 
+              behavior: 'smooth' 
+            });
+          }, 50);
+
+        
+    }
+
+    stopScrolling() {
+        clearInterval(this.scrollInterval);
     }
 
 }
