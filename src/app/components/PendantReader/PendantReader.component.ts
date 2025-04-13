@@ -1,6 +1,6 @@
 import { TranslateService } from '@ngx-translate/core';
 import { first } from 'rxjs/operators';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, signal, SimpleChanges, HostListener, ViewChild, WritableSignal} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, signal, SimpleChanges, ViewChild, WritableSignal, } from '@angular/core';
 import { ApplicationPresenterAPI, ApplicationPresenter, RobotSettings } from '@universal-robots/contribution-api';
 import { PendantReaderNode } from './PendantReader.node';
 import { PATH } from 'src/generated/contribution-constants';
@@ -20,6 +20,7 @@ import { PdfViewerComponent } from 'ng2-pdf-viewer';
     templateUrl: './PendantReader.component.html',
     styleUrls: ['./PendantReader.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 
 
@@ -45,9 +46,7 @@ export class PendantReaderComponent implements ApplicationPresenter, OnChanges {
     currentMatch: number = 0;
     matchCount: number = 0;
     showSearchPopup: boolean = false;
-
-    
-
+    scrollInterval: any;
 
     constructor(
         protected readonly translateService: TranslateService,
@@ -219,6 +218,10 @@ export class PendantReaderComponent implements ApplicationPresenter, OnChanges {
         this.applicationAPI.applicationNodeService.updateNode(this.applicationNode);
     }
 
+    // *************************************************
+    //  Search popup
+    // *************************************************
+
     toggleSearchPopup() {
         this.showSearchPopup = !this.showSearchPopup;
     }
@@ -294,6 +297,31 @@ export class PendantReaderComponent implements ApplicationPresenter, OnChanges {
 
     closeSearchPopup() {
         this.showSearchPopup = false;
+    }
+
+    // *************************************************
+    //  Scroll buttons 
+    // *************************************************
+
+    startScrolling(direction: 'up' | 'down') {
+
+        const pdfContainer = document.querySelector('.ng2-pdf-viewer-container');
+      
+        if (!pdfContainer) {
+            console.error("PDF container not found!");
+            return;
+        }
+    
+        this.scrollInterval = setInterval(() => {
+            pdfContainer.scrollBy({ 
+              top: direction === 'down' ? 2 : -2, 
+              behavior: 'auto' 
+            });
+          }, 2);
+    }
+
+    stopScrolling() {
+        clearInterval(this.scrollInterval);
     }
 
 }

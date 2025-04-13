@@ -170,4 +170,4 @@ All of which could be nice to implement at some point.
 
 ###### Other
 
-Well a good official Icon/Logo would be nice
+Well a good official Icon/Logo set would be nice.

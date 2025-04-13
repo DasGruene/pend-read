@@ -1,6 +1,39 @@
+[V2.0.0](https://github.com/DasGruene/pend-read/releases)
+
+D. 13/04 - 2025
+
+Compatibility:
+
+    PolyScope X v10.8 
+    SDK v0.15
+
+Breaking:
+
+    Updated Angular version from 18 to 19 (Breaking Change) 
+
+New Features
+
+    Scroll buttons added to improve navigation through the PDF.
+
+Bug Fixes
+
+    None
+
+Improvements
+
+    Increased button sizes.
+
+
+
+
 [V1.1.0](https://github.com/DasGruene/pend-read/releases)
 
 D. 16/02 - 2025
+
+Compatibility:
+
+    PolyScope X v10.7 
+    SDK v0.14
 
 New Features
 
@@ -21,6 +54,11 @@ Other:
 [V1.0.1](https://github.com/DasGruene/pend-read/releases)
 
 D. 11/02 - 2025
+
+Compatibility:
+
+    PolyScope X v10.6 
+    SDK v0.13
 
 New Features
 
