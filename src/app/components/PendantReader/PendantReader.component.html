@@ -53,32 +53,37 @@
                 class="pdf-viewer">
             ></pdf-viewer>
             <div class="toolbar">
-                <div class="scroll-up">
-                    <button > 🔼 </button>
-                </div>
-                <div class="search-function">   
-                    <button (click)="toggleSearchPopup()"> 🔍 </button>
-                    <!-- Search Popup -->
-                    <div class="search-popup" *ngIf="showSearchPopup">
-                        <div style="display: flex;">
-                            <ur-dialog-input
-                                [type]="'text'"
-                                [disabled]="false"
-                                [label]="'Search: ' + currentMatch + '/' + matchCount"
-                                [message]="'Type in search text.'"
-                                [placeholder]="''"
-                                [currentValue]="searchText"
-                                (valueChanged)="setSearchVariable($event)"
-                                [value]="searchText"
-                            ></ur-dialog-input>
-                            <button (click)="searchInPDF(true)" class="search-btn">⬇️</button>
-                            <button (click)="searchInPDF(false)" class="search-btn">⬆️</button>
-                            <button (click)="closeSearchPopup()" class="search-btn">❌</button>
+                <div class="top-buttons" >
+                    <button class="toolbar-button" (mousedown)="startScrolling('up')" (mouseup)="stopScrolling()" (touchstart)="startScrolling('up')" (touchend)="stopScrolling()">⬆</button>
+                
+                    <div class="search-function">   
+                        <!-- Search Popup -->
+                        <button class="toolbar-button" (click)="toggleSearchPopup()"> 🔍 </button>
+
+                        <div class="search-popup" *ngIf="showSearchPopup">
+                            <div style="display: flex;">
+                                <ur-dialog-input
+                                class="search-input"
+                                    [type]="'text'"
+                                    [disabled]="false"
+                                    [label]="'Search: ' + currentMatch + '/' + matchCount"
+                                    [message]="'Type in search text.'"
+                                    [placeholder]="''"
+                                    [currentValue]="searchText"
+                                    (valueChanged)="setSearchVariable($event)"
+                                    [value]="searchText"
+                                ></ur-dialog-input>
+                                <button (click)="searchInPDF(true)" class="search-btn">⬇️</button>
+                                <button (click)="searchInPDF(false)" class="search-btn">⬆️</button>
+                                <button (click)="closeSearchPopup()" class="search-btn">❌</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="scroll-down">
-                    <button (mousedown)="startScrolling('down')" (mouseup)="stopScrolling()" (mouseleave)="stopScrolling()" (touchstart)="startScrolling('down')" (touchend)="stopScrolling()">  ⬇ </button>
+                <div class="middle-buttons">
+                </div>
+                <div class="bottom-buttons">
+                    <button class="toolbar-button" (mousedown)="startScrolling('down')" (mouseup)="stopScrolling()" (touchstart)="startScrolling('down')" (touchend)="stopScrolling()">  ⬇ </button>
                 </div>
             </div>
         </div>

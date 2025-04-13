@@ -12,7 +12,6 @@
             "plugin:@angular-eslint/template/process-inline-templates"
         ],
       "rules": {
-        "@typescript-eslint/no-unused-vars": "off",
         "@angular-eslint/component-selector": [
           "error",
           {
@@ -46,6 +45,13 @@
         "plugin:@angular-eslint/template/recommended"
       ],
       "rules": {}
+    },
+    {
+      "files": ["**/*.ts"],
+      "rules": {
+          "@angular-eslint/prefer-standalone": "off",
+          "@typescript-eslint/no-unused-vars": "off"
+      }
     }
   ]
 }

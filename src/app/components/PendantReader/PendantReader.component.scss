@@ -15,6 +15,7 @@
       .loadButton{
         display: flex;
         justify-content: flex-start; 
+        height: 80%;
       }
       .center-div {
         display: flex;
@@ -36,7 +37,7 @@
         margin: 5px;
         text-align: center;
         height: 68vh; 
-        width: 85vw;  
+        width: 80vw;  
         min-width: 0;
         min-height: 0;
         touch-action: auto !important;
@@ -62,33 +63,64 @@
 
       .toolbar {
         margin: 5px;
+        display: grid;
+        grid-template-rows: auto auto auto; // one row for each inner div
+        height: 68vh; 
+        min-width: 60px;
 
-        .search-function {
-          position: relative;
-          display: inline-block;
-          
+        .toolbar-button {
+          width: 100%;
+          height: 50px;
+        }
 
-          .search-popup {
-            position: absolute;
-            top: 50%;
-            right: 230%;
-            transform: translate(0%, -50%); /* Moves left by 100% of its width & centers vertically */
-            background: white;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000; /* Makes sure it's always on top */
+        .top-buttons {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
 
-            .search-btn {
-              flex: 1;
-              margin-left: 10px;
+          .search-function {
+            position: relative;
+            display: inline-block;
+            
+
+            .search-popup {
+              position: absolute;
+              top: -60%;
+              right: 220%;
+              transform: translate(0%, -50%); /* Moves left by 50% of its width & centers vertically */
+              background: white;
+              padding: 10px;
+              border-radius: 5px;
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              z-index: 1000; /* Makes sure it's always on top */
+
+              .search-input  {
+                min-width: 200px;
+              }
+
+              .search-btn {
+                flex: 1;
+                margin-left: 10px;
+              }
             }
           }
         }
+
+        .middle-buttons {
+          display: flex;
+          align-items: center;
+        }
+
+        .bottom-buttons{
+          display: flex;
+          align-items: flex-end;
+        }
+        
+
 
 
       }
